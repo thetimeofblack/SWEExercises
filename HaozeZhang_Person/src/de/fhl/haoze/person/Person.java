@@ -92,9 +92,9 @@ public class Person {
 
 	@Override
 	public String toString() {
-		if (this.birthDate == null) { // Check if birth date is valid
+		if (this.birthDate == null) { // birth date is not valid
 			return firstName + " " + lastName + ", born in " + "unknow date";
-		}
+		} // birth date is valid
 		return firstName + " " + lastName + ", born in " + birthDateFormat.format(birthDate);
 	}
 	

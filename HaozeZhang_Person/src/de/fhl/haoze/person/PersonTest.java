@@ -1,11 +1,15 @@
+/**
+ * Class PersonTest
+ * @version 2016-4-12
+ * @author david
+ * Unit test for Class Person
+ */
+
 package de.fhl.haoze.person;
 
 import java.util.Date;
 
-/**
- * @author david
- * Unit test for Class Person
- */
+
 public class PersonTest {
 	/**
 	 * Test class Person, using three constructors and the destructor
