@@ -1,0 +1,15 @@
+Question:
+	Implementation difference on client- and on server-side in comparison 
+	to the TCP approach.
+
+Answer:
+	The TCP approach is based on a connection oriented link. To initialize 
+	the connection, IP and port shall be specified on both client and server
+	side. Transmission is possible only after the socket is accepted.
+
+	The UDP approach specify a packet for each transmission. It is possible 
+	to decide the IP and port of the destination. For server, port shall be 
+	given when constructing the server. For client, it shall be assigned a 
+	host by name. And for every packet to be sent, IP and port should be 
+	specified even if in this case, the "server calculator", either the server and 
+	client has its certain socket.
