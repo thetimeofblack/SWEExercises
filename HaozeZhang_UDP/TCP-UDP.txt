@@ -11,5 +11,8 @@ Answer:
 	to decide the IP and port of the destination. For server, port shall be 
 	given when constructing the server. For client, it shall be assigned a 
 	host by name. And for every packet to be sent, IP and port should be 
-	specified even if in this case, the "server calculator", either the server and 
-	client has its certain socket.
+	specified even if in this case, the "server calculator", either the 
+	server and client has its certain socket.
+
+Haoze Zhang
+2016-5-8
