@@ -4,7 +4,7 @@ Software Engineering Exercises for FHL SWE-II
 ---
 
 ## About
-Answers to the exercies of SWE-II are presented here, with full copyright under CC license.
+Answers to the exercises of SWE-II are presented here, with full copyright under CC license.
 All functionalities are implemented with Java SE 1.8.
 ## Acknowledgement
 Hereby, credits are given to Ms. Hanesova for creating the challanging yet instructional exercise session.
