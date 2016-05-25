@@ -7,7 +7,6 @@ public class Pizza {
 	public static enum Topping {
 		CHEESE, SALAT, SALAMI, SAUSAGE, BROCOLI, TOMATO
 	}
-	
 	public static enum Size {
 		SMALL, MEDIUM, LARGE
 	}
@@ -63,6 +62,7 @@ public class Pizza {
 				break;
 		}
 		price += toppingNumber * toppingPrice;
+		this.price = price;
 		return price;
 	}
 	

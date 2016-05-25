@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import java.awt.Rectangle;
+import java.awt.Color;
 
 public class MainWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -108,6 +109,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		controlPanel.add(lblPrice);
 		
 		btnOrder = new JButton("Order");
+		btnOrder.setForeground(Color.ORANGE);
+		btnOrder.setBackground(Color.RED);
 		lblPrice.setLabelFor(btnOrder);
 		controlPanel.add(btnOrder);
 		btnOrder.addActionListener(this);
