@@ -18,5 +18,5 @@ public interface ICallback extends Remote {
 	 * @throws RemoteException
 	 * Client print out the booking info every CALLBACK_FREQ times of booking
 	 */
-	public void printBookingInfo(List<String> bookingInfo) throws RemoteException;
+	public boolean printBookingInfo(List<String> bookingInfo) throws RemoteException;
 }

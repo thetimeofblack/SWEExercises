@@ -8,11 +8,11 @@ public final class ConcertServer_Stub
     implements de.fhl.haoze.concertbookingcallback.IConcert, java.rmi.Remote
 {
     private static final java.rmi.server.Operation[] operations = {
-	new java.rmi.server.Operation("boolean bookTickets(java.lang.String, java.util.Date, int, java.lang.String)"),
+	new java.rmi.server.Operation("boolean bookTickets(java.lang.String, java.util.Date, int, java.lang.String, de.fhl.haoze.concertbookingcallback.ICallback)"),
 	new java.rmi.server.Operation("boolean cancelBooking(java.lang.String)")
     };
     
-    private static final long interfaceHash = -7059201037701488467L;
+    private static final long interfaceHash = 3907215938796998894L;
     
     private static final long serialVersionUID = 2;
     
@@ -30,7 +30,7 @@ public final class ConcertServer_Stub
 		    long.class
 		});
 	    useNewInvoke = true;
-	    $method_bookTickets_0 = de.fhl.haoze.concertbookingcallback.IConcert.class.getMethod("bookTickets", new java.lang.Class[] {java.lang.String.class, java.util.Date.class, int.class, java.lang.String.class});
+	    $method_bookTickets_0 = de.fhl.haoze.concertbookingcallback.IConcert.class.getMethod("bookTickets", new java.lang.Class[] {java.lang.String.class, java.util.Date.class, int.class, java.lang.String.class, de.fhl.haoze.concertbookingcallback.ICallback.class});
 	    $method_cancelBooking_1 = de.fhl.haoze.concertbookingcallback.IConcert.class.getMethod("cancelBooking", new java.lang.Class[] {java.lang.String.class});
 	} catch (java.lang.NoSuchMethodException e) {
 	    useNewInvoke = false;
@@ -47,13 +47,13 @@ public final class ConcertServer_Stub
     
     // methods from remote interfaces
     
-    // implementation of bookTickets(String, Date, int, String)
-    public boolean bookTickets(java.lang.String $param_String_1, java.util.Date $param_Date_2, int $param_int_3, java.lang.String $param_String_4)
+    // implementation of bookTickets(String, Date, int, String, ICallback)
+    public boolean bookTickets(java.lang.String $param_String_1, java.util.Date $param_Date_2, int $param_int_3, java.lang.String $param_String_4, de.fhl.haoze.concertbookingcallback.ICallback $param_ICallback_5)
 	throws java.rmi.RemoteException
     {
 	try {
 	    if (useNewInvoke) {
-		Object $result = ref.invoke(this, $method_bookTickets_0, new java.lang.Object[] {$param_String_1, $param_Date_2, new java.lang.Integer($param_int_3), $param_String_4}, 8987603490251192948L);
+		Object $result = ref.invoke(this, $method_bookTickets_0, new java.lang.Object[] {$param_String_1, $param_Date_2, new java.lang.Integer($param_int_3), $param_String_4, $param_ICallback_5}, 555208784263913730L);
 		return ((java.lang.Boolean) $result).booleanValue();
 	    } else {
 		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 0, interfaceHash);
@@ -63,6 +63,7 @@ public final class ConcertServer_Stub
 		    out.writeObject($param_Date_2);
 		    out.writeInt($param_int_3);
 		    out.writeObject($param_String_4);
+		    out.writeObject($param_ICallback_5);
 		} catch (java.io.IOException e) {
 		    throw new java.rmi.MarshalException("error marshalling arguments", e);
 		}

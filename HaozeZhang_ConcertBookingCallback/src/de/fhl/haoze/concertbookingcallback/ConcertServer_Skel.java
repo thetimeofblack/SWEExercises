@@ -7,11 +7,11 @@ public final class ConcertServer_Skel
     implements java.rmi.server.Skeleton
 {
     private static final java.rmi.server.Operation[] operations = {
-	new java.rmi.server.Operation("boolean bookTickets(java.lang.String, java.util.Date, int, java.lang.String)"),
+	new java.rmi.server.Operation("boolean bookTickets(java.lang.String, java.util.Date, int, java.lang.String, de.fhl.haoze.concertbookingcallback.ICallback)"),
 	new java.rmi.server.Operation("boolean cancelBooking(java.lang.String)")
     };
     
-    private static final long interfaceHash = -7059201037701488467L;
+    private static final long interfaceHash = 3907215938796998894L;
     
     public java.rmi.server.Operation[] getOperations() {
 	return (java.rmi.server.Operation[]) operations.clone();
@@ -21,7 +21,7 @@ public final class ConcertServer_Skel
 	throws java.lang.Exception
     {
 	if (opnum < 0) {
-	    if (hash == 8987603490251192948L) {
+	    if (hash == 555208784263913730L) {
 		opnum = 0;
 	    } else if (hash == 3314085846343486571L) {
 		opnum = 1;
@@ -35,18 +35,20 @@ public final class ConcertServer_Skel
 	
 	de.fhl.haoze.concertbookingcallback.ConcertServer server = (de.fhl.haoze.concertbookingcallback.ConcertServer) obj;
 	switch (opnum) {
-	case 0: // bookTickets(String, Date, int, String)
+	case 0: // bookTickets(String, Date, int, String, ICallback)
 	{
 	    java.lang.String $param_String_1;
 	    java.util.Date $param_Date_2;
 	    int $param_int_3;
 	    java.lang.String $param_String_4;
+	    de.fhl.haoze.concertbookingcallback.ICallback $param_ICallback_5;
 	    try {
 		java.io.ObjectInput in = call.getInputStream();
 		$param_String_1 = (java.lang.String) in.readObject();
 		$param_Date_2 = (java.util.Date) in.readObject();
 		$param_int_3 = in.readInt();
 		$param_String_4 = (java.lang.String) in.readObject();
+		$param_ICallback_5 = (de.fhl.haoze.concertbookingcallback.ICallback) in.readObject();
 	    } catch (java.io.IOException e) {
 		throw new java.rmi.UnmarshalException("error unmarshalling arguments", e);
 	    } catch (java.lang.ClassNotFoundException e) {
@@ -54,7 +56,7 @@ public final class ConcertServer_Skel
 	    } finally {
 		call.releaseInputStream();
 	    }
-	    boolean $result = server.bookTickets($param_String_1, $param_Date_2, $param_int_3, $param_String_4);
+	    boolean $result = server.bookTickets($param_String_1, $param_Date_2, $param_int_3, $param_String_4, $param_ICallback_5);
 	    try {
 		java.io.ObjectOutput out = call.getResultStream(true);
 		out.writeBoolean($result);

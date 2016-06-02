@@ -8,10 +8,10 @@ public final class ConcertClient_Stub
     implements de.fhl.haoze.concertbookingcallback.ICallback, java.rmi.Remote
 {
     private static final java.rmi.server.Operation[] operations = {
-	new java.rmi.server.Operation("void printBookingInfo(java.util.List)")
+	new java.rmi.server.Operation("boolean printBookingInfo(java.util.List)")
     };
     
-    private static final long interfaceHash = 6700862007059424931L;
+    private static final long interfaceHash = -6924533556128443058L;
     
     private static final long serialVersionUID = 2;
     
@@ -45,12 +45,13 @@ public final class ConcertClient_Stub
     // methods from remote interfaces
     
     // implementation of printBookingInfo(List)
-    public void printBookingInfo(java.util.List $param_List_1)
+    public boolean printBookingInfo(java.util.List $param_List_1)
 	throws java.rmi.RemoteException
     {
 	try {
 	    if (useNewInvoke) {
-		ref.invoke(this, $method_printBookingInfo_0, new java.lang.Object[] {$param_List_1}, -6163933636298113881L);
+		Object $result = ref.invoke(this, $method_printBookingInfo_0, new java.lang.Object[] {$param_List_1}, -776595166109715767L);
+		return ((java.lang.Boolean) $result).booleanValue();
 	    } else {
 		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 0, interfaceHash);
 		try {
@@ -60,7 +61,16 @@ public final class ConcertClient_Stub
 		    throw new java.rmi.MarshalException("error marshalling arguments", e);
 		}
 		ref.invoke(call);
-		ref.done(call);
+		boolean $result;
+		try {
+		    java.io.ObjectInput in = call.getInputStream();
+		    $result = in.readBoolean();
+		} catch (java.io.IOException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} finally {
+		    ref.done(call);
+		}
+		return $result;
 	    }
 	} catch (java.lang.RuntimeException e) {
 	    throw e;

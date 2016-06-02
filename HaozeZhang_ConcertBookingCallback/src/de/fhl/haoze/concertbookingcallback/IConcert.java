@@ -21,7 +21,7 @@ public interface IConcert extends Remote {
 	 * @throws RemoteException
 	 * Client requests a ticket booking routine with necessary information
 	 */
-	public boolean bookTickets(String bandName, Date concertDate, int ticketAmount, String customerName) throws RemoteException;
+	public boolean bookTickets(String bandName, Date concertDate, int ticketAmount, String customerName, ICallback interf) throws RemoteException;
 	/**
 	 * @param customerName
 	 * @return	True, canceled; False, no such booking

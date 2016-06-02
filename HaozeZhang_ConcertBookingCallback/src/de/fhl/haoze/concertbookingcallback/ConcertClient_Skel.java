@@ -7,10 +7,10 @@ public final class ConcertClient_Skel
     implements java.rmi.server.Skeleton
 {
     private static final java.rmi.server.Operation[] operations = {
-	new java.rmi.server.Operation("void printBookingInfo(java.util.List)")
+	new java.rmi.server.Operation("boolean printBookingInfo(java.util.List)")
     };
     
-    private static final long interfaceHash = 6700862007059424931L;
+    private static final long interfaceHash = -6924533556128443058L;
     
     public java.rmi.server.Operation[] getOperations() {
 	return (java.rmi.server.Operation[]) operations.clone();
@@ -20,7 +20,7 @@ public final class ConcertClient_Skel
 	throws java.lang.Exception
     {
 	if (opnum < 0) {
-	    if (hash == -6163933636298113881L) {
+	    if (hash == -776595166109715767L) {
 		opnum = 0;
 	    } else {
 		throw new java.rmi.UnmarshalException("invalid method hash");
@@ -45,9 +45,10 @@ public final class ConcertClient_Skel
 	    } finally {
 		call.releaseInputStream();
 	    }
-	    server.printBookingInfo($param_List_1);
+	    boolean $result = server.printBookingInfo($param_List_1);
 	    try {
-		call.getResultStream(true);
+		java.io.ObjectOutput out = call.getResultStream(true);
+		out.writeBoolean($result);
 	    } catch (java.io.IOException e) {
 		throw new java.rmi.MarshalException("error marshalling return", e);
 	    }

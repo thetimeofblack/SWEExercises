@@ -1,5 +1,6 @@
 package de.fhl.haoze.concertbookingcallback;
 
+import java.io.Serializable;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -18,30 +19,29 @@ import java.util.Scanner;
  * Client application which can make reservation of concert tickets.
  * Called back every 5 times of reservation to print out existing reservations
  */
-public class ConcertClient extends UnicastRemoteObject implements ICallback{
+public class ConcertClient extends UnicastRemoteObject implements ICallback {
+
 	protected ConcertClient() throws RemoteException {
 		super();
 	}
 
-	static String customerName;
+	private static final long serialVersionUID = 5890474262948586679L;
+	String customerName;
 	
 	public static void main(String[] args) throws Exception {
 		
+		ConcertClient client = new ConcertClient();
+		ICallback callback = client;
+		
 		// look up server service
-		ConcertClient concertClient = new ConcertClient();
 		System.out.println("Client started");
 		IConcert service = (IConcert) Naming.lookup("rmi://" + "localhost" + "/ConcertBooking");
 		System.out.println("Service looked up");
 		
-		// register callback service
-		Registry r = LocateRegistry.getRegistry();
-        r.rebind("BookingPrint", concertClient);
-        System.out.println("Service bonud");
-		
         // prepare keyboard input
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Your name please:");
-		customerName = keyboard.nextLine();
+		client.customerName = keyboard.nextLine();
 		
 		// Circulate here
 		while(true) {
@@ -68,11 +68,11 @@ public class ConcertClient extends UnicastRemoteObject implements ICallback{
 				System.out.println("How many tickets do you want?");
 				int ticketAmount = Integer.parseInt(keyboard.nextLine());
 				
-				if (service.bookTickets(bandName, concertDate, ticketAmount, customerName)) {
+				if (service.bookTickets(bandName, concertDate, ticketAmount, client.customerName, callback)) {
 					System.out.println("Booked!");
 				}
 			} else if (input == 2) {
-				if (service.cancelBooking(customerName)) {
+				if (service.cancelBooking(client.customerName)) {
 					System.out.println("All your reservations are canceled!");
 				} else {
 					System.out.println("Sorry, here is nothing to cancel under your name");
@@ -91,11 +91,12 @@ public class ConcertClient extends UnicastRemoteObject implements ICallback{
 	 * @see de.fhl.haoze.concertbookingcallback.ICallback#printBookingInfo(java.util.List)
 	 */
 	@Override
-	public void printBookingInfo(List<String> bookingInfo) throws RemoteException {
+	public boolean printBookingInfo(List<String> bookingInfo) throws RemoteException {
 		System.out.println("You have done " + ICallback.CALLBACK_FREQ +
 				" times of booking, let's have a look");
 		for (String s: bookingInfo) {
 			System.out.println(s);
 		}
+		return true;
 	}
 }

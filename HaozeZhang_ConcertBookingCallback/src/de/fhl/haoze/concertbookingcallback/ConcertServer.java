@@ -1,8 +1,5 @@
 package de.fhl.haoze.concertbookingcallback;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -50,7 +47,7 @@ public class ConcertServer extends UnicastRemoteObject implements IConcert {
 	 * @see de.fhl.haoze.concertbooking.IConcert#bookTickets(java.lang.String, java.util.Date, int, java.lang.String)
 	 */
 	@Override
-	public boolean bookTickets(String bandName, Date concertDate, int ticketAmount, String customerName) throws RemoteException {
+	public boolean bookTickets(String bandName, Date concertDate, int ticketAmount, String customerName, ICallback interf) throws RemoteException {
 		bookingRequests++; // counter increases
 		ConcertBooking cb = new ConcertBooking();
 		cb.setBandName(bandName);
@@ -62,18 +59,13 @@ public class ConcertServer extends UnicastRemoteObject implements IConcert {
 		System.out.println(cb);
 		
 		// Callback if meet requirement, every certain times of booking
-		if (bookingRequests/ICallback.CALLBACK_FREQ == 0) {
-			try {
-				ICallback service = (ICallback) Naming.lookup("rmi://" + "localhost" + "/BookingPrint");
-				List<String> bookingInfo = new ArrayList<String>();
-				for (ConcertBooking c: concertBookings) {
-					bookingInfo.add(c.toString());
-				}
-				service.printBookingInfo(bookingInfo);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (NotBoundException e) {
-				e.printStackTrace();
+		if (bookingRequests % ICallback.CALLBACK_FREQ == 0) {
+			List<String> bookingInfo = new ArrayList<String>();
+			for (ConcertBooking c: concertBookings) {
+				bookingInfo.add(c.toString());
+			}
+			if (interf.printBookingInfo(bookingInfo)) {
+				System.out.println("Client notification printed");
 			}
 		}
 		return true;
