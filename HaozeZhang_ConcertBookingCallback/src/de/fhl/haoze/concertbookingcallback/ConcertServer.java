@@ -51,6 +51,7 @@ public class ConcertServer extends UnicastRemoteObject implements IConcert {
 	 */
 	@Override
 	public boolean bookTickets(String bandName, Date concertDate, int ticketAmount, String customerName) throws RemoteException {
+		bookingRequests++; // counter increases
 		ConcertBooking cb = new ConcertBooking();
 		cb.setBandName(bandName);
 		cb.setConcertDate(concertDate);
