@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Router implements Runnable {
 
-	static final int lID = Network.ROUTER_NUMBER + 1;
+	static final int lID = 0;
 	int ID = 0;
 	int iterations = 0;
 	int msgSent = 0;
@@ -94,10 +94,10 @@ public class Router implements Runnable {
 	private void sendMsg(int[] msg) {
 		iterations++;
 		for (int rID: distanceVector.keySet()) {
-//			if (ID == lID) {
-//				System.out.println(ID + " ---> " + rID);
+			if (ID == lID) {
+				System.out.println((char)(ID + 'A') + " ---> " + (char)(rID + 'A'));
 //				printMsg(msg);
-//			}
+			}
 			Network.passMsg(ID, rID, msg.clone());
 			msgSent++;
 		}
@@ -149,9 +149,9 @@ public class Router implements Runnable {
 		msgReceived++;
 		msgs.offer(msg);
 		sIDs.offer(sID);
-//		if (sID == lID) {
-//			System.out.println(ID + " <--- " + sID);
-//		}
+		if (sID == lID) {
+			System.out.println((char)(ID + 'A') + " <--- " + (char)(sID + 'A'));
+		}
 	}
 	
 	
@@ -173,7 +173,7 @@ public class Router implements Runnable {
 			if (i == ID) {
 				continue;
 			}
-			System.out.println("Target: " + (char)('A'+i) + "\tNeighbour: " + (char)('A' + forwardTable[1][i])
+			System.out.println("Target: " + (char)('A'+i) + "\tNext hop: " + (char)('A' + forwardTable[1][i])
 					+ "\tCost: " + forwardTable[0][i]);
 		}
 	}
@@ -192,7 +192,7 @@ public class Router implements Runnable {
 				}
 				index++;
 			}
-			System.out.println("Neighbour: " + (char)('A'+e.getKey()) + "  " + costString);
+			System.out.println("Next Hop: " + (char)('A'+e.getKey()) + "  " + costString);
 		}
 	}
 	
@@ -202,9 +202,10 @@ public class Router implements Runnable {
 			System.out.println("Neighbour: " + (char)('A'+e.getKey()) + "  " + e.getValue());
 		}
 	}
+	
 	@Override
 	public String toString() {
-		String s = "Router " + (char)(ID + 'A') + ": \n"
+		String s = "Router " + (char)(ID + 'A') + " report : \n"
 				+ "Iteration: " + iterations + "\n"
 				+ "Sent: " + msgSent + "\n"
 				+ "Received: " + msgReceived + "\n";
@@ -220,7 +221,7 @@ public class Router implements Runnable {
 //			printForwardTable();
 //			printDistanceVector();
 //		}
-		for (;;) {
+		for (;;) { // infinite loop
 			process();
 //			if (ID == lID) {
 //				printForwardTable();

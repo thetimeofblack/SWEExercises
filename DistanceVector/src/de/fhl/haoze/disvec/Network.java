@@ -43,9 +43,12 @@ public class Network {
 	
 	public static void main(String[] args) {
 		System.out.println("Start");
+		
+		// create all routers
 		for (int i = 0; i < ROUTER_NUMBER; i++) {
 			routers[i] = new Router(i);
 		}
+		// start routers
 		for (int i = 0; i < ROUTER_NUMBER; i++) {
 			Thread t = new Thread(routers[i]);
 			t.setName(i + "");
@@ -53,17 +56,19 @@ public class Network {
 			t.start();
 		}
 		System.out.println("Wait for convergence...");
-		System.out.println();
 //		try {
 ////			Thread.sleep(1000);
 //		} catch (InterruptedException e) {
 //			e.printStackTrace();
 //		}
+		
+		// Wait until all routers are idle
 		while(idleRouters < ROUTER_NUMBER);
 		System.out.println("Converged");
 		System.out.println("********** Report ********");
 		System.out.println("Total traffic: " + msgPassed + " messages");
 		System.out.println(routers[lID]);
+		routers[lID].printDistanceVector();
 		routers[lID].printForwardTable();
 	}
 }
