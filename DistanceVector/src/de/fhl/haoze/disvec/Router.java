@@ -6,24 +6,32 @@ import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * @author David
+ * @version 2016-06-10
+ * Class Router
+ * Just a router who performs distance vector algorithm
+ */
 public class Router implements Runnable {
 
-	static final int lID = 0;
-	int ID = 0;
-	int iterations = 0;
-	int msgSent = 0;
-	int msgReceived = 0;
+	private static final int lID = 0; // monitoring this router
+	// no monitoring: lID = Network.ROUTER_NUMBER + 1;
+	
+	private int ID = 0;
+	private int iterations = 0;
+	private int msgSent = 0;
+	private int msgReceived = 0;
 	/* <neighborID, cost> */
-	Map<Integer, Integer> cost = new HashMap<Integer, Integer>();
+	private Map<Integer, Integer> cost = new HashMap<Integer, Integer>();
 	/* <neighborID, distance to each target> */
-	Map<Integer, int[]> distanceVector = new HashMap<Integer, int[]>();
+	private Map<Integer, int[]> distanceVector = new HashMap<Integer, int[]>();
 	/* 
 	 * [0]: shortest distance to each target
 	 * [1]: corresponding forward neighbor 
 	 * */
-	int[][] forwardTable = null;
-	volatile BlockingQueue<int[]> msgs = new LinkedBlockingQueue<int[]>();
-	volatile BlockingQueue<Integer> sIDs = new LinkedBlockingQueue<Integer>();
+	private int[][] forwardTable = null;
+	private volatile BlockingQueue<int[]> msgs = new LinkedBlockingQueue<int[]>();
+	private volatile BlockingQueue<Integer> sIDs = new LinkedBlockingQueue<Integer>();
 	
 	Router() {
 		//empty
@@ -208,7 +216,7 @@ public class Router implements Runnable {
 		String s = "Router " + (char)(ID + 'A') + " report : \n"
 				+ "Iteration: " + iterations + "\n"
 				+ "Sent: " + msgSent + "\n"
-				+ "Received: " + msgReceived + "\n";
+				+ "Received: " + msgReceived;
 		return s;
 	}
 

@@ -1,9 +1,15 @@
 package de.fhl.haoze.disvec;
 
+/**
+ * @author David
+ * @version 2016-06-10
+ * Class Network
+ * A network with multiple routers, routers do algorithm.
+ */
 public class Network {
 	public static final int INF = 0xffff;
 	public static final int ROUTER_NUMBER = 6;
-	public static final int[][] DISTANCE_MATRIX
+	public static final int[][] DISTANCE_MATRIX // Must be a symmetric triangle matrix
 	= {{INF,   2, INF, INF, INF,   1},
 	   {  2, INF,   3, INF,   2,   3},
 	   {INF,   3, INF,   4, INF,   3},
@@ -21,7 +27,7 @@ public class Network {
 	static int idleRouters = ROUTER_NUMBER;
 	static int msgPassed = 0;
 	static Router[] routers = new Router[ROUTER_NUMBER];
-	static int lID = 0;
+	static int lID = 0; // report this router
 	
 	static void passMsg(int sID, int rID, int[] msg) {
 		routers[rID].receiveMsg(sID, msg);
@@ -56,19 +62,25 @@ public class Network {
 			t.start();
 		}
 		System.out.println("Wait for convergence...");
+		
+		// if program cannot reach the end, or there are sync issues, uncomment lines below
 //		try {
-////			Thread.sleep(1000);
+//			Thread.sleep(300);
 //		} catch (InterruptedException e) {
 //			e.printStackTrace();
 //		}
 		
 		// Wait until all routers are idle
 		while(idleRouters < ROUTER_NUMBER);
+		
 		System.out.println("Converged");
 		System.out.println("********** Report ********");
 		System.out.println("Total traffic: " + msgPassed + " messages");
+		System.out.println();
 		System.out.println(routers[lID]);
+		System.out.println();
 		routers[lID].printDistanceVector();
+		System.out.println();
 		routers[lID].printForwardTable();
 	}
 }
